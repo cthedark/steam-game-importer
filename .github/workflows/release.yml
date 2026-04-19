@@ -16,9 +16,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: node18-linux-x64
+          - target: node20-linux-x64
             artifact: steam-game-importer-linux-x64
-          - target: node18-linux-arm64
+          - target: node20-linux-arm64
             artifact: steam-game-importer-linux-arm64
 
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: npm
 
       - name: Install dependencies

@@ -13,8 +13,8 @@
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "prepublishOnly": "npm run build",
-    "pkg": "npm run build && node scripts/bundle.mjs && pkg bundle/index.cjs --targets node18-linux-x64 --output release/steam-game-importer --compress GZip",
-    "pkg:all": "npm run build && node scripts/bundle.mjs && pkg bundle/index.cjs --targets node18-linux-x64,node18-linux-arm64 --out-path release/ --compress GZip"
+    "pkg": "npm run build && node scripts/bundle.mjs && pkg bundle/index.cjs --targets node20-linux-x64 --output release/steam-game-importer --compress GZip",
+    "pkg:all": "npm run build && node scripts/bundle.mjs && pkg bundle/index.cjs --targets node20-linux-x64,node20-linux-arm64 --out-path release/ --compress GZip"
   },
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Launcher script for steam-game-importer
+exec node /usr/lib/steam-game-importer/dist/index.js "$@"

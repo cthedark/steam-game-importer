@@ -11,7 +11,6 @@ await build({
   target: "node18",
   format: "cjs",
   outfile: "bundle/index.cjs",
-  // Mark native addons as external — steam-shortcut-editor uses one
   external: [],
   banner: {
     js: "/* steam-game-importer — bundled for pkg */",

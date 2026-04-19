@@ -8,9 +8,16 @@ import * as path from "path";
 import { createRequire } from "module";
 import { generateAppId, generateShortcutId } from "./app-id.js";
 
-// steam-shortcut-editor is CJS-only
-const require = createRequire(import.meta.url);
-const shortcutsParser = require("steam-shortcut-editor");
+// steam-shortcut-editor is CJS-only.
+// createRequire needs a valid URL — import.meta.url is undefined when
+// esbuild bundles to CJS for pkg, so fall back to __filename in that case.
+declare const __filename: string | undefined;
+const _require = createRequire(
+  typeof __filename !== "undefined"
+    ? __filename
+    : import.meta.url
+);
+const shortcutsParser = _require("steam-shortcut-editor");
 
 export interface ShortcutEntry {
   appid: number;

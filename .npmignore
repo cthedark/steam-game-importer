@@ -1,0 +1,8 @@
+src/
+tsconfig.json
+PKGBUILD
+*.tar.gz
+pkg/
+.git/
+.gitignore
+.npmrc

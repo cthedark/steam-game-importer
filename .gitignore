@@ -1,5 +1,7 @@
 node_modules/
 dist/
+bundle/
+release/
 *.tar.gz
 pkg/
 src/**/*.tar.gz

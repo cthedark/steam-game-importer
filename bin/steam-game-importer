@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-# Launcher script for steam-game-importer
-exec node /usr/lib/steam-game-importer/dist/index.js "$@"
+# Resolve the real directory of this script (handles symlinks from npm)
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+exec node "$SCRIPT_DIR/../dist/index.js" "$@"

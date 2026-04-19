@@ -1,4 +1,4 @@
-# Maintainer: Your Name <your-email@example.com>
+# Maintainer: cthedark
 pkgname=steam-game-importer
 pkgver=1.0.0
 pkgrel=1

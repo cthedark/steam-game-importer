@@ -14,50 +14,39 @@ Unlike batch tools like Steam ROM Manager, this focuses on importing **one game 
 - Extracts clean game titles from ROM filenames
 - Searches SteamGridDB for game artwork (portrait, banner, hero, logo, icon)
 - Supports local image files as artwork (use your own images or mix with SteamGridDB)
-- Falls back to local file prompts when SteamGridDB has no results
 - Fuzzy-matches game titles for better search results
 - Writes directly to Steam's `shortcuts.vdf` (with backup)
 - Downloads and saves artwork to Steam's grid directory
 - Sets Proton/compatibility tool version for Windows games via `config.vdf`
 - Handles Steam process stop/restart
-
-## Prerequisites
-
-- Node.js 18+
-- Steam installed on Linux
-- A [SteamGridDB API key](https://www.steamgriddb.com/profile/preferences/api) (free)
+- Saves your SteamGridDB API key so you only enter it once
 
 ## Install
 
-### Arch Linux (AUR)
-
-Using your preferred AUR helper:
+Download the latest binary from the [Releases](../../releases/latest) page.
 
 ```bash
-yay -S steam-game-importer
-```
+# Download (Steam Deck / x86_64 Linux)
+curl -L -o steam-game-importer \
+  https://github.com/YOUR_USERNAME/steam-game-importer/releases/latest/download/steam-game-importer-linux-x64
 
-Then run:
+# Make it executable
+chmod +x steam-game-importer
 
-```bash
+# (Optional) Move to your PATH
+mkdir -p ~/.local/bin
+mv steam-game-importer ~/.local/bin/
+
+# Run
 steam-game-importer
 ```
 
-### Manual (any Linux with Node.js 18+)
+No Node.js or other dependencies required — the binary is self-contained.
 
-```bash
-git clone https://github.com/YOUR_USERNAME/steam-game-importer.git
-cd steam-game-importer
-npm install
-npm run build
-npm start
-```
+## Prerequisites
 
-Or for development:
-
-```bash
-npm run dev
-```
+- Steam installed on Linux
+- A [SteamGridDB API key](https://www.steamgriddb.com/profile/preferences/api) (free) — the wizard will ask for it on first run and save it for future use
 
 ## Wizard Flow
 
@@ -69,24 +58,11 @@ npm run dev
 6. **Choose Artwork** — pick artwork per type (SteamGridDB results, local files, or mix both)
 7. **Review & Save** — confirms and writes the shortcut + downloads artwork + sets Proton
 
-## Project Structure
+## Configuration
 
-```
-src/
-├── index.ts                 # Wizard CLI entry point
-└── lib/
-    ├── index.ts             # Barrel exports
-    ├── app-id.ts            # Steam app ID generation (CRC32)
-    ├── artwork.ts           # SteamGridDB integration & artwork types
-    ├── emulators.ts         # Emulator detection & ROM launch commands
-    ├── image-downloader.ts  # Download & save artwork to grid dir
-    ├── proton.ts            # Discover Proton versions & set compat tool
-    ├── shortcuts.ts         # Read/write shortcuts.vdf
-    ├── steam-id.ts          # Steam ID64 ↔ account ID conversion
-    ├── steam-paths.ts       # Linux Steam directory detection
-    ├── steam-process.ts     # Stop/start Steam process
-    └── steam-users.ts       # Discover Steam user accounts
-```
+Settings are stored in `~/.config/steam-game-importer/config.json`. Currently saves:
+
+- `steamGridDbApiKey` — your SteamGridDB API key (prompted on first use)
 
 ## Supported Emulators
 
@@ -105,6 +81,25 @@ The wizard auto-detects these emulators (both native and Flatpak installs):
 | mGBA | Game Boy, Game Boy Advance |
 | melonDS | Nintendo DS |
 | Lime3DS | Nintendo 3DS |
+
+## Building from Source
+
+Requires Node.js 20+.
+
+```bash
+git clone https://github.com/YOUR_USERNAME/steam-game-importer.git
+cd steam-game-importer
+npm install
+npm run build
+npm start
+```
+
+To build a self-contained binary locally:
+
+```bash
+npm run pkg
+# Output: release/steam-game-importer
+```
 
 ## Credits
 

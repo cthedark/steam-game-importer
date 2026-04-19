@@ -1,6 +1,6 @@
 # Steam Game Importer
 
-A wizard-style CLI tool for Linux that imports a single non-Steam game into your Steam library, complete with artwork from [SteamGridDB](https://www.steamgriddb.com/).
+A wizard-style CLI tool for Linux that imports a single non-Steam game into your Steam library, complete with artwork from [SteamGridDB](https://www.steamgriddb.com/). This is a command-line tool with no GUI — it walks you through the process interactively in your terminal.
 
 Unlike batch tools like Steam ROM Manager, this focuses on importing **one game at a time** with a guided, step-by-step experience.
 
@@ -46,7 +46,7 @@ No Node.js or other dependencies required — the binary is self-contained.
 ## Prerequisites
 
 - Steam installed on Linux
-- A [SteamGridDB API key](https://www.steamgriddb.com/profile/preferences/api) (free) — the wizard will ask for it on first run and save it for future use
+- A [SteamGridDB API key](https://www.steamgriddb.com/profile/preferences/api) (free) — required to search and download game artwork from SteamGridDB. The wizard will ask for it on first run and save it for future use. You can still use local image files without an API key.
 
 ## Wizard Flow
 

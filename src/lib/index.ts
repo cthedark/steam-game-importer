@@ -1,4 +1,6 @@
 export { generateAppId, generateShortAppId, generateShortcutId, shortenAppId, lengthenAppId } from "./app-id.js";
+export { loadConfig, saveConfig, configPath } from "./config.js";
+export type { AppConfig } from "./config.js";
 export { ArtworkProvider, ARTWORK_TYPES, ARTWORK_META } from "./artwork.js";
 export type { ArtworkType, SGDBGame, SGDBArtwork } from "./artwork.js";
 export { saveArtwork, isImageFile } from "./image-downloader.js";

@@ -30,6 +30,9 @@ import {
   getInstalledEmulators,
   buildEmulatorLaunchCommand,
   titleFromRomFilename,
+  loadConfig,
+  saveConfig,
+  configPath,
 } from "./lib/index.js";
 import type { SteamUser, SGDBGame, SGDBArtwork, ArtworkType, ArtworkSelection, ProtonVersion, EmulatorDef } from "./lib/index.js";
 
@@ -583,7 +586,7 @@ async function main() {
       name: "artworkSource",
       message: "How would you like to add artwork?",
       choices: [
-        { name: "Search SteamGridDB (requires API key)", value: "sgdb" },
+        { name: "Search SteamGridDB", value: "sgdb" },
         { name: "Use local image files", value: "local" },
         { name: "Skip artwork", value: "skip" },
       ],
@@ -592,14 +595,24 @@ async function main() {
     let artworkSelections: ArtworkSelection[] = [];
 
     if (artworkSource === "sgdb") {
-      const { apiKey } = await inquirer.prompt([{
-        type: "input",
-        name: "apiKey",
-        message: "SteamGridDB API key (get one at steamgriddb.com/profile/preferences/api):",
-        validate: (v: string) => v.trim().length > 0 || "API key is required to fetch artwork",
-      }]);
+      const config = await loadConfig();
+      let apiKey = config.steamGridDbApiKey || "";
 
-      const provider = new ArtworkProvider(apiKey.trim());
+      if (apiKey) {
+        console.log(chalk.green(`  Using saved API key from ${configPath()}`));
+      } else {
+        const answer = await inquirer.prompt([{
+          type: "input",
+          name: "apiKey",
+          message: "SteamGridDB API key (get one free at steamgriddb.com/profile/preferences/api):",
+          validate: (v: string) => v.trim().length > 0 || "API key is required to fetch artwork",
+        }]);
+        apiKey = answer.apiKey.trim();
+        await saveConfig({ steamGridDbApiKey: apiKey });
+        console.log(chalk.gray(`  API key saved to ${configPath()}`));
+      }
+
+      const provider = new ArtworkProvider(apiKey);
       const sgdbGame = await stepSearchArtwork(provider, game.appname);
 
       // Step 6: Select artwork
